@@ -23,7 +23,8 @@ const db = require('knex')({
       }).then( data=>{
         console.log('length is',data.length);
            
-        if(data.length!==0){
+        if(data.length!==0)
+        {
           response.credentials='correct';
           response.name = u;
           console.log('matched');
@@ -46,7 +47,12 @@ const db = require('knex')({
     })
   });
 
- 
+//  r.post('/signup',function(req,res){
+//    let messages={name:'',credentials="false"};
+//    let id=req.data.name;
+//    let pswd=req.data.password;
+//    db.select().from('message').where({name:'',password:''});
+//  })
   
 
 
@@ -56,18 +62,38 @@ const db = require('knex')({
     let p = req.body.password;
     let flag = false;
     console.log('body is ',req.body);
-    db.select().from('Users').then( data=>{
-      let u2 = req.body.name;
-      let p2 = req.body.password;
-      console.log('data is',data);
-      for(let i=0;i<data.length;i++)
-      {
-        if(u2===data[i].name)
+    // db.select().from('Users').then( data=>{
+    //   let u2 = req.body.name;
+    //   let p2 = req.body.password;
+    //   console.log('data is',data);
+
+      db('users').where({
+        name:u,
+       // password:p
+      }).then( data=>{
+        console.log('length is',data.length);
+           
+        if(data.length!==0)
         {
+        //  response.credentials='correct';
+          response.name = u;
           signup_response.status='already';
           console.log('matched');
+          res.json(response);
         }
-      }
+
+
+
+
+
+      // for(let i=0;i<data.length;i++)
+      // {
+      //   if(u2===data[i].name)
+      //   {
+      //     signup_response.status='already';
+      //     console.log('matched');
+      //   }
+      // }
       if(signup_response.status==='unregistered'){
         console.log('unregistered');
 
