@@ -28,7 +28,7 @@ const db = require('knex')({
  
 
 
- r.post('/getmessage',(req,res)=>{
+ r.post('/getmessages',(req,res)=>{
 
     let s = req.body.sender;
     let r = req.body.receiver;
@@ -36,10 +36,11 @@ const db = require('knex')({
     let response={status:'',result:''};
  
     const db = new sqlite3.Database('./db.sqlite', (err) => {
-        if (err) {
+        if(err) {
             response.result=  err;
             res.json(response);
-        }else {
+        }
+        else {
             console.log('connected to databse');
         } 
     })
@@ -50,9 +51,12 @@ const db = require('knex')({
           if (err) {
 
             response.result=err;
+            console.log("error");
             res.json(response);
           } else {
+            response.status="retrieved";
             response.result=result;
+            console.log("result");
             res.json(response);
           }
         });

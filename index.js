@@ -2,7 +2,8 @@ const express = require('express');
 const socket = require('socket.io');
 const bodyparser = require('body-parser');
 const login = require('./login');
-const message = require('./messages');
+const messages = require('./messages');
+const signup=require('./signup');
 
 // App setup
 const app = express();
@@ -14,7 +15,8 @@ const server = app.listen(4000, function(){
 app.use(express.static('public'));
 app.use(bodyparser.json());
 app.use('/login',login);
-app.use('/message',message);
+app.use('/signup',signup);
+app.use('/messages',messages);
 
 
 
